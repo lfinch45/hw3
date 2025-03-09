@@ -80,11 +80,22 @@ Node* llfilter(Node* head, Comp pred);
 template <typename Comp>
 Node* llfilter(Node* head, Comp pred)
 {
-    //*********************************************
-    // Provide your implementation below
-    //*********************************************
-
-
+    // Base case
+    if (head == nullptr){
+      return head;
+    }
+    
+    // If the node should be removed, remove it by updating the head pointer and keep going
+    if (pred(head->val)){
+      Node* nextN = head->next; 
+      delete head;
+      return llfilter(nextN, pred);
+    }
+    // If the node shouldn't be removed, simply update its next pointer
+    else{
+      head->next = llfilter(head->next, pred);
+      return head;
+    }
 }
 
 #endif
